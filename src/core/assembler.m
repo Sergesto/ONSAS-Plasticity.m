@@ -21,6 +21,7 @@ function [ fsCell, stressMat, tangMatsCell, matFint, strain_vec, acum_plas_strai
                                                            materials, KS, Ut, Udott, Udotdott,...
                                                            analysisSettings, outputBooleans, nodalDispDamping,...
                                                            timeVar, previousStateCell )
+global timeInd Rstress Rstrain Rstrainacum Largo ldef;
 
 % ====================================================================
 %  --- 1 declarations ---
@@ -160,6 +161,12 @@ for elem = 1:nElems
 
 
     [ fs, ks, stressElem, ~, strain, acum_plas_strain ] = elementTrussInternForce( elemNodesxyzRefCoords, elemDisps, hyperElasModel, hyperElasParams, A, previous_state ) ;
+
+    % register of the results
+    Rstress(timeInd,elem) = stressElem ;
+    Rstrain(timeInd,elem) = strain ;
+    Rstrainacum(elem) = acum_plas_strain ;
+    Largo(timeInd,elem) = ldef ;
 
     Finte = fs{1} ;  Ke = ks{1} ;
 

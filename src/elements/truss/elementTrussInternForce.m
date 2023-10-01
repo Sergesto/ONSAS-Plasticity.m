@@ -23,6 +23,8 @@
 function [Finte, KTe, stress, dstressdeps, strain, acum_plas_strain ] = ...
   elementTrussInternForce( Xe, Ue, hyperElasModel, hyperElasParams, A, previous_state )
 
+  global ldef;
+  
   Xe    = Xe'     ;
   Xedef = Xe + Ue ;
 
